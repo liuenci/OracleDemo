@@ -1,0 +1,202 @@
+1.输出‘hello world’
+DECLARE
+	message varchar2(20):='hello world';
+Begin
+	dbms_output.put_line(message);
+END
+/
+
+2. 注释:a./**/ b.--
+
+3.数据申明
+DECLARE
+	num1 integer;
+	num2 real;
+	num3 double precision;
+BEGIN
+	null;
+END;
+/
+
+4. 用户定义的子类型
+DECLARE
+	SUBTYPE name IS char(20);
+	SUBTYPE message IS varchar2(100);
+	salutation name;
+	greetings message;
+BEGIN
+	salutation :='Reader';
+	greetings:='Welcome to the World of PL/SQL';
+	dbms_output.put_line('Hello'||salutation||greetings);
+END;
+/
+
+5.plsql变量
+DECLARE
+	a integer:=10;
+	b integer:=20;
+	c integer;
+	f real;
+BEGIN
+	c: = a+b;
+	dbms_output.put_line('value of c:'||c)；
+	f:=70/3;
+	dbms_output.put_line('value of c:'||f);
+END;
+/
+
+6. PL/SQL变量的作用域
+DECLARE
+	-- Global varables
+	num1 number:=95;
+	num2 number:=85;
+BEGIN
+	dbms_output.putline('Outer Variable num1:'||num1);
+	dbms_output.putline('Outer Variable num2:'||num2);
+	DECLARE
+		-- Local variables
+		num1 number :=195;
+		num2 number :=185;
+	BEGIN
+		dbms_output.putline('Inner Variable num1:'||num1);
+		dbms_output.putline('Inner Variable num1:'||num2);
+	END;
+END;
+/
+
+7. 指定sql查询结果为plsql变量
+DECLARE
+	c_id customer.id%type :=1;
+	c_name customer.name%type;
+	c_addr customer.address%type;
+	c_sal customer.salary%type;
+BEGIN
+	SELECT name,address,salary INTO c_name,c_addr,c_sal FROM CUSTOMER where id = c_id;
+	dbms_output.put_line()
+	('Customer ' ||c_name || ' from ' || c_addr || ' earns ' || c_sal);
+END;
+/
+
+8.常量和文字
+PI CONSTANT NUMBER :=3.14;
+
+9.算术运算符
+dbms_output.put_line(10+5);
+
+10.plsql关系运算符
+IF(a=b) then 
+	dbms_output.put_line("")
+ELSE
+	dbms_output.put_line("")
+END IF
+
+11. 比较运算符
+	IF value LIKE pattern THEN
+      dbms_output.put_line ('True');
+   ELSE
+      dbms_output.put_line ('False');
+   END IF;
+-------------------------------------------
+   IF (x between 5 and 20) THEN
+      dbms_output.put_line('True');
+   ELSE
+      dbms_output.put_line('False');
+   END IF;
+------------------------------------------
+ IF (letter in ('a', 'b', 'c')) THEN
+      dbms_output.put_line('True');
+   ELSE
+      dbms_output.put_line('False');
+   END IF;
+
+
+12.逻辑运算符
+IF (a AND b) THEN
+      dbms_output.put_line('Line 1 - Condition is true');
+   END IF;
+
+13.运算符优先级
+e := (a + b) * c / d;      -- ( 30 * 15 ) / 5
+
+14.case语句
+CASE selector
+    WHEN 'value1' THEN S1;
+    WHEN 'value2' THEN S2;
+    WHEN 'value3' THEN S3;
+    ...
+    ELSE Sn;  -- default case
+END CASE;
+
+15.搜索case语句
+CASE
+    WHEN selector = 'value1' THEN S1;
+    WHEN selector = 'value2' THEN S2;
+    WHEN selector = 'value3' THEN S3;
+    ...
+    ELSE Sn;  -- default case
+END CASE;
+
+16.嵌套IF THEN ELSE 语句
+IF( boolean_expression 1)THEN
+    -- executes when the boolean expression 1 is true 
+    IF(boolean_expression 2) THEN
+      -- executes when the boolean expression 2 is true 
+      sequence-of-statements;
+   END IF;
+ELSE
+   -- executes when the boolean expression 1 is not true
+  else-statements;
+END IF;
+
+17.循环
+DECLARE
+   i number(1);
+   j number(1);
+BEGIN
+   << outer_loop >>
+   FOR i IN 1..3 LOOP
+      << inner_loop >>
+      FOR j IN 1..3 LOOP
+         dbms_output.put_line('i is: '|| i || ' and j is: ' || j);
+      END loop inner_loop;
+   END loop outer_loop;
+END;
+
+DECLARE
+	i number(1);
+	j number(2);
+BEGIN
+	<< out_loop>>
+	FOR i IN 1..9 LOOP
+		<< inner_loop>>
+		FOR j in i..9 LOOP
+			dbms_output.put_line(j||'*'||i||i*j||' ');
+		END loop inner_loop;
+	END loop inner_loop;
+END;
+
+DECLARE
+	e_id number :=1;
+BEGIN
+	select emp_job ,emp_sal from employee where emp_id=e_id;
+	if(emp_job==clerk) THEN
+		emp_sal = emp_sal+500;
+	ELSIF(emp_job==salesman) THEN
+		emp_sal = emp_sal+1000;
+	ELSIF(emp_job==analyst) THEN
+		emp_sal = emp_sal+1500;
+	ELSE
+		emp_sal = emp_sal+2000;
+	END IF;
+END;
+
+DECLARE
+	e_id number :=1;
+BEGIN
+	select emp_name ,emp_sal,emp_yongjin from employee where emp_id = c_id;
+	dbms_output.put_line()
+	if(emp_sal==null) THEN
+		emp_sal = 0;
+	END IF;
+	('employee ' ||emp_name ||' '|| emp_sal || ' '||emp_yongjin);
+END;
