@@ -8,7 +8,7 @@ end;
 
 declare type CustCursor is ref cursor
 return Customers%rowtype;
-declare CustRecord Customers%ROWTYPE
+declare CustRecord Customers%ROWTYPE;
 BEGIN
   open CustCursor;
   loop
@@ -16,3 +16,6 @@ BEGIN
   exit when CustCursor%NOTFOUND
   close CustCursor;
 end;
+
+-- πÿ±’”Œ±Í
+close CustCursor;
